@@ -21,11 +21,7 @@ func main() {
 	rootPathPtr := flag.String("rootPath", "/v1/asset/(.*)/resize", "Root path eg /v1/asset/(.*)/resize")
 	flag.Parse()
 
-	path := *rootPathPtr + *pathPtr
-
-	paramsStr := strings.TrimLeft(path, *rootPathPtr)
-
-	params := Matrix(strings.Split(paramsStr, ";")[1:])
+	params := Matrix(strings.Split(*pathPtr, ";")[1:])
 
 	mathutil.PermutationFirst(params)
 
