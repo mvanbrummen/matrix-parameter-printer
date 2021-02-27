@@ -8,8 +8,6 @@ import (
 	"modernc.org/mathutil"
 )
 
-const root = "/v1/asset/(.*)/resize"
-
 type Matrix []string
 
 func (m Matrix) Len() int { return len(m) }
@@ -25,7 +23,7 @@ func main() {
 
 	path := *rootPathPtr + *pathPtr
 
-	paramsStr := strings.TrimLeft(path, root)
+	paramsStr := strings.TrimLeft(path, *rootPathPtr)
 
 	params := Matrix(strings.Split(paramsStr, ";")[1:])
 
@@ -33,16 +31,16 @@ func main() {
 
 	total := 1
 
-	print(params)
+	print(*rootPathPtr, params)
 
 	for mathutil.PermutationNext(params) {
-		print(params)
+		print(*rootPathPtr, params)
 		total++
 	}
 
 	fmt.Printf("\n\nFor a total of %d permutations\n", total)
 }
 
-func print(matrix Matrix) {
-	fmt.Println(root + ";" + strings.Join(matrix, ";"))
+func print(rootPath string, matrix Matrix) {
+	fmt.Println(rootPath + ";" + strings.Join(matrix, ";"))
 }
